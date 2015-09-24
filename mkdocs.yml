@@ -1,6 +1,6 @@
 site_name: Vlad
 
-repo_url: https://github.com/hashbangcode/vlad
+repo_url: https://github.com/hashbangcode/vlad-docs
 site_description: 'Vlad: Vagrant LAMP with Ansible and Drupal.'
 docs_dir: .
 site_dir: ../docs_site
@@ -13,12 +13,14 @@ pages:
 - ['usage/getting_started.md', 'Usage', 'Getting started']
 - ['usage/settings_file.md', 'Usage', 'Settings file']
 - ['usage/ansible.md', 'Usage', 'Ansible']
-- ['usage/custom_roles.md', 'Usage', 'Custom roles']
+- ['usage/custom_box.md', 'Usage', 'Custom base box']
+- ['usage/custom_playbook.md', 'Usage', 'Custom playbook']
 - ['usage/example_vlad_output.md', 'Usage', 'Example Vlad output']
 - ['usage/project_structure.md', 'Usage', 'Project structure']
 - ['usage/documentation.md', 'Usage', 'Documentation']
 - ['usage/vagrant_share.md', 'Usage', 'Vagrant share']
 - ['usage/variables.md', 'Usage', 'Variables']
+- ['usage/windows.md', 'Usage', 'Windows']
 
 - ['applications/index.md', 'Applications', 'Applications']
 - ['applications/mysql.md', 'Applications', 'MySQL']
@@ -30,6 +32,7 @@ pages:
 - ['applications/munin.md', 'Applications', 'Munin']
 
 - ['contributing/contributing.md', 'Contributing']
+- ['contributing/submitting_patches.md', 'Contributing', 'Submitting Patches']
 - ['contributing/naming_convention.md', 'Contributing', 'Task naming convention']
 - ['contributing/submitting_issues.md', 'Contributing', 'Submitting issues']
 - ['contributing/order_convention.md', 'Contributing', 'Task attribute order convention']
@@ -42,3 +45,4 @@ pages:
 - ['project/thanks.md', 'Project', 'Thanks']
 - ['project/changelog.md', 'Project', 'Change log']
 - ['project/licence.md', 'Project', 'Licence']
+- ['project/version_release.md', 'Project', 'Version Release']

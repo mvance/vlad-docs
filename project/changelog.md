@@ -1,11 +1,120 @@
 <h1>Change log</h1>
 
+## Version 1.1.5 ##
+
+- Fixed #272: Sort git tags by version number, so drupal8_install.sh gets latest beta.
+- Fixed #269: "vlad_guts" yet to be fully rolled out in Vagrantfile.
+- Added the language-pack-en apt package in order to prevent a Ubuntu login issue where the system was complaining about the locale not being set.
+- Changed example.settings.yml into example.vlad_settings.yml and the custom settings.yml into vlad_settings.yml.
+- Found a small mistake in the tests on the web server setup (no port was present).
+- Merge pull request #264 from mvance/ruby-fix.
+- Fixed database import from file(s).
+- Added prerequisite packages for Ruby to install on Debian.
+- Drush alias functionality is now aware of recently added settings location.
+- Fixed ImageMagick tests.
+
+## Version 1.1.4
+
+### ✝ BREAKING CHANGES ✝
+
+- Vlad's custom role feature has been upgraded to support a full custom playbook (therefore potentially supporting multiple roles).
+    - See [Custom playbook](../usage/custom_playbook.md) for details.
+    - Settings files will need to be amended to use new variables.
+    - Existing custom roles will need to be amended to work as standalone playbooks.
+    - Vlad vars & settings will _not_ be automatically passed to the custom playbook.
+    - Vlad handlers will _not_ be automatically made available to the custom playbook.
+    - The custom playbook's name & location is completely flexible.
+- Changed the core 'vlad' directory to be called 'vlad_guts' (#258).
+
+### NON-BREAKING CHANGES
+- Fix for directory not being accessible when using NPM (#223).
+- Fix for DNS addresses not being resolved correctly (#252).
+- Moved Vagrant Cachier support from :machine to :box (#257).
+- Fix for vmware provisioning (pull request #256).
+- Correction of syntax in a Solr provisioning task (pull request #251).
+- Correction of typo in main Vlad index.php file.
+- Added MySQL slow query log support (#155).
+- Added support for provisioning with a custom base box.
+
+## Version 1.1.3
+
+- Update of the Solr version to allow for the change in version on the Solr mirrors (#232).
+- Added fix to allow the Vlad user to have greater access over local databases (#230).
+
+## Version 1.1.2
+
+- Tweaks and fixes to the MySQL role, now more stable.
+- Set skip_name_resolve to false as a default in MySQL.
+- Sorted out PHP tags within PHP role.
+- Added max_input_vars and max_input_time parameters to PHP config.
+- Added a task to ensure loose permissions on /tmp directory.
+- Removed some duplicate tasks.
+- No longer using UPD as transport for NFS (#216).
+- Increased xdeub.max_nesting_level for Drupal 8 requirement.
+- Added MySQL connections for root user from 127.0.0.1.
+
+## Version 1.1.1
+
+- Fixed (#213) a bug with Solr role in Ansible 1.9.x+.
+- Some tweaks to the vlad-play.sh script to make it more reliable (#214).
+- Allowed default and root user in MySQL to have GRANT privileges (#218).
+- Tweaked the MySQL role slightly to make it more reliable.
+- Added a minimum Ansible version check (set to 1.8.4).
+- Added drush_structure_tables variable to allow default table skipping functionality with sql-dump.
+
+## Version 1.1.0
+
+### ✝ BREAKING CHANGES ✝
+
+- Multisite support. `webserver_hostname_alias` is now `webserver_hostname_aliases` and expects an array. See [Variables - Webserver](../usage/variables.md#webserver).
+- Support for multiple databases. `dbname` now expects an array. See [Variables - MySQL](../usage/variables.md#mysql).
+- Vlad requires Vagrant 1.6.4 or higher (Vlad will check).
+- Automatic database dumps now reside in vlad_aux/db_io/halt_destroy and are named after each database.
+- Optional automatic database import now points at vlad_aux/db_io/halt_destroy if set to `true`.
+
+### Non-breaking changes
+
+- Drush make support. See [Variables - Drush make](../usage/variables.md#drush-make).
+- Added automated testing support via Travis CI.
+- Vlad automatically installs required Vagrant plugins.
+- Local hosts file now managed by vagrant-hostsupdater plugin.
+- Increased stability now that vlad/host.ini is only used as an Ansible inventory.
+- Automatic database dumps on halt/destroy now work again.
+- Amends to how Ansible playbooks need to be run if used separately from Vagrant. See [Ansible](../usage/ansible.md).
+- Drush backups now relocated to vlad_aux/drush_backups.
+- Drush dumps now relocated to vlad_aux/db_io/drush_dumps.
+- Added Drupal 6 install script.
+- Drush alias support. See [Variables - Other settings](../usage/variables.md#other-settings).
+- More idempotent Ansible plays.
+- Now using Drush's example .drush_bashrc file by default (`dr` & `dssh` FTW!).
+- Now running syntax checking and minimal testing with Travis.ci.
+- Reworked the Vagrantfile file in order to be more maintainable.
+- Updated the default index.php file.
+- Vlad now supports Windows.
+- Added a script called vlad-play.sh in order to help run Ansible tasks on the Vlad box.
+- Various small tweaks, fixes, corrections, and optimisations.
+
+## Version 1.0.4
+
+- PECL uploadprogress no longer installed by default
+- A small tweak to the way in which adminer is tested
+- Added a clause to turn off the default site on ubuntu 14 boxes
+- More stability fixes to drush playbook
+- Added a small change to allow xdebug with PHP 5.3 on debian to installed
+- Addresses #150: Drush clear cache handler
+- Addresses #151: Add hosts.ini location to ansible config file
+- Changed the command task to a shell task when using composer to download drush due to the * in the command
+- Added a couple of flags to the composer crush install to force it to install at /home/vagrant
+- Corrected an issue where the curl tests wouldn't resolve the host if the port wasn't present
+- Take of copy of any current local settings file on provision (vlad_aux/tmp/)
+- Minor grammar correction in settings feedback.
+- Undoing the Varnish/Apache port test change in 1.0.3.
+
 ## Version 1.0.3
 
 - Fixed some wonky yaml syntax - now using proper structured maps.
 - Fixed odd issue with ports test failing with default values.
 - Less software installed by default. A previous similar commit only amended example.settings.yml - this commit changes the actual default variable values.
-
 
 ## Version 1.0.2
 
@@ -20,7 +129,7 @@
 
 ## Version 1.0
 
-### BREAKING CHANGES
+### ✝ BREAKING CHANGES ✝
 
 - Moved to using boolean values (`true`/`false`) for settings variables in place of `"y"`/`"n"` strings. This will cause Ansible to fail on existing installations until settings files are adapted accordingly.
 - Vlad's default operating system is now Ubuntu 14.04. Existing installations that require a different OS will need to specify that in their settings files using the `vlad_os` variable before re-provisioning. See [Variables](../usage/variables.md#vagrantfile-configuration).
